@@ -14,4 +14,4 @@ workflows:
   ci:
     jobs:
       - emoji:
-          name: "🧹 Emoji"
+          name: "🙏🏻 Emoji"
