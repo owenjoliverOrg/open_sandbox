@@ -1,0 +1,17 @@
+version: 2.1
+
+jobs:
+  emoji:
+    docker:
+      - image: cimg/base:stable
+    steps:
+      - checkout
+      - run:
+          name: "Say hello"
+          command: "echo Hello, World!"
+
+workflows:
+  ci:
+    jobs:
+      - emoji:
+          name: "🌀 Emoji"
