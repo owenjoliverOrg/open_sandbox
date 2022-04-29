@@ -4,6 +4,7 @@ jobs:
   emoji:
     docker:
       - image: cimg/base:stable
+    resource_class: owenjoliver/ec2_mac
     steps:
       - checkout
       - run:
@@ -14,4 +15,4 @@ workflows:
   ci:
     jobs:
       - emoji:
-          name: "⛲ Emoji"
+          name: "Emoji"
