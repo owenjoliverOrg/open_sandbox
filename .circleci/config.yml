@@ -1,17 +1,15 @@
 version: 2.1
 
 jobs:
-  emoji:
+  test-web:
     docker:
-      - image: cimg/base:stable
+      - image: cimg/node:lts
     steps:
       - checkout
-      - run:
-          name: "Say hello"
-          command: "echo Hello, World!"
 
 workflows:
-  ci:
+  deploy:
     jobs:
-      - emoji:
-          name: "🌀 Emoji"
+      - test-web:
+          context:
+            - opulous-slack
