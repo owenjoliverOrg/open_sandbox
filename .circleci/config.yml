@@ -1,15 +1,50 @@
 version: 2.1
 
 jobs:
-  test-web:
-    docker:
-      - image: cimg/node:lts
+  build:
+    docker: 
+      - image: circleci/node:4.8.2
     steps:
-      - checkout
+      - run: echo "Building building building!"
 
+  deploy-stuff:
+    docker:
+      - image: circleci/node:4.8.2
+    steps:
+      - run: echo "Deploy stuff here"
+  
+  test:
+    docker:
+      - image: circleci/node:4.8.2
+    steps:
+      - run: echo "Deploy stuff here"
+  
+  test2:
+    docker:
+      - image: circleci/node:4.8.2
+    steps:
+      - run: echo "Deploy stuff here"
+  
 workflows:
-  deploy:
+  build-test-and-approval-deploy:
     jobs:
-      - test-web:
-          context:
-            - opulous-slack
+      - build
+      - test:
+          context: deploy-key-restricted-context
+          requires:
+            - build
+      - hold:
+          type: approval
+          requires:
+            - test
+      - test2:
+          context: deploy-key-restricted-context
+          requires:
+            - hold
+      - hold2:
+          type: approval
+          requires:
+            - test2
+      - deploy-stuff:
+          requires:
+            - hold2
